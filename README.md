@@ -5,14 +5,14 @@ where every page looks exactly like the original. Each page becomes a picture
 on its own Word page of the same size, so nothing reflows, and the links keep
 working on top of it.
 
-**Live:** https://pdf-to-word-pages.vercel.app · or download
+Live at https://pdf-to-word-pages.vercel.app · or download
 [`dist/pdf-to-word.html`](dist/pdf-to-word.html) and open it. It is one file,
 it works offline, and nothing you drop on it leaves your browser.
 
 ## Why it exists
 
 Converters that "turn a PDF into an editable Word file" rebuild the layout and
-get it wrong: fonts shift, columns break, a designed newsletter turns into a
+get it wrong. Fonts shift, columns break, a designed newsletter turns into a
 mess. Sometimes you do not want editable. You want the same pages, inside a
 Word file, with the links still clickable. That is what this does.
 
