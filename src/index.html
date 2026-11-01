@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF to Word</title>
+<style>
+  :root {
+    --bg: #f5f4f0; --card: #fff; --ink: #1d1d1b; --muted: #6d6b64; --line: #d8d5cd;
+    --accent: #2b579a; --ok: #1d7a45; --err: #b42318;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161615; --card: #1f1f1d; --ink: #ecebe6; --muted: #9b998f; --line: #3a3934;
+            --accent: #7ea8e6; --ok: #5cc28a; --err: #f2877d; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; padding: 24px 16px;
+    background: var(--bg); color: var(--ink);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  }
+  main { width: 100%; max-width: 520px; }
+  h1 { font-size: 22px; font-weight: 650; letter-spacing: -0.01em; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+  #drop {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; height: 200px; padding: 0 16px; text-align: center; cursor: pointer;
+    background: var(--card); border: 2px dashed var(--line); border-radius: 14px;
+    transition: border-color .15s, background-color .15s;
+  }
+  #drop strong { font-size: 17px; font-weight: 600; }
+  #drop span { color: var(--muted); font-size: 14px; }
+  #drop:hover, #drop:focus-within, .over #drop { border-color: var(--accent); }
+  .over #drop { background: color-mix(in srgb, var(--accent) 8%, var(--card)); }
+  #pick { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .opt { display: flex; gap: 8px; align-items: flex-start; margin-top: 12px; color: var(--muted); font-size: 14px; cursor: pointer; }
+  .opt input { margin: 3px 0 0; accent-color: var(--accent); }
+  ul { list-style: none; margin: 16px 0 0; padding: 0; }
+  li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .name { flex: none; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .status { color: var(--muted); text-align: right; }
+  .ok .status { color: var(--ok); }
+  .err .status { color: var(--err); }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>PDF to Word</h1>
+  <p class="sub">Every PDF page, or every slide of a deck saved as HTML, becomes a Word page of the same size, looking exactly the same, and its links still work. Runs in your browser, nothing is uploaded.</p>
+  <label id="drop">
+    <input id="pick" type="file" accept=".pdf,application/pdf,.html,.htm,text/html,.zip,application/zip" multiple>
+    <strong>Drop PDF or HTML files here</strong>
+    <span>or click to choose</span>
+  </label>
+  <label class="opt"><input id="link-page" type="checkbox"> Add a last page listing every link, for email apps that can't click links on the pages</label>
+  <ul id="list"></ul>
+</main>
+
+<script id="converter">/*@include src/converter.js*/</script>
+
+<script id="html-converter">/*@include src/html-converter.js*/</script>
+
+<script>/*@include src/ui.js*/</script>
+
+<!-- Libraries, inlined so the page works offline: JSZip 3.10.1 (MIT) and
+     Mozilla pdf.js 3.11.174 (Apache 2.0). The pdf.js worker is loaded as a plain
+     script, so pdf.js runs on the page itself (a file:// page cannot start workers). -->
+<script>/*@include vendor/jszip.min.js*/</script>
+<script>/*@include vendor/pdf.min.js*/</script>
+<script>/*@include vendor/pdf.worker.min.js*/</script>
+</body>
+</html>
